@@ -7,31 +7,27 @@
     <title>FlapApp</title>
 </head>
 <body>
-    <div class="conatiner mt-5"  style="margin: auto; width: 220px;">
-        <div id="signin">
-            <thead>Signin</thead>
-            <tbody>
-                <form  style="text-align: center; ">
-                    <label for="email">Email: </label><br>
-                    <input type="text" placeholder="username@gmail.com"><br>
-                    <label for="password">Password: </label><br>
-                    <input type="password"><br>
-                    <button id="signinbtn" style="color:blue"> Submit</button>
-                </form>
-            </tbody>
-        </div>
-        <div id="signup" >
-            <thead >SignUp</thead>
-            <tbody>
-                <form  style="text-align: center;">
-                    <label for="email">Email: </label><br>
-                    <input type="text" placeholder="username@gmail.com"><br>
-                    <label for="password">Password: </label><br>
-                    <input type="password"><br>
-                    <button id="signupbtn" style="color:blue"> Submit</button>
-                </form>
-            </tbody>
-        </div>
+    <div style="margin: auto; width: 220px;"> 
+        <table>
+            <thead><span style="color:aqua; size:50px" >FlapApp</span></thead>
+        </table>
+    </div>
+    <div>
+        <table style=" position:relative; top:50px; margin: auto; width: 220px;">
+                <td><button id="signinbtn" type="submit" color="blue">
+                   <a href="/signin.html">SignIn</a> 
+                </button></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table style="position:relative; top:100px; margin: auto; width: 220px;">
+            <tr>
+                <td><button id="signupbtn" type="submit" color="purple">
+                    <a href="/signup.html">SignUp</a> 
+                </button></td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>
