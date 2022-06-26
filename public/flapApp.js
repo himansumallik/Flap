@@ -1,3 +1,5 @@
+
+
 const authenticate = async (email, password) => {
     const response = await axios({
                 url: "http://localhost:8000/signin",
@@ -11,7 +13,7 @@ const authenticate = async (email, password) => {
             });
 
     if(response.success){
-        alert("Signed in");
+         window.location.replace(`/postpage.html?email=${email}`);
     }
     else {
         alert(`Error:  ${response.message}`)
@@ -38,6 +40,26 @@ const addUser = async (email, password) => {
     }
 }
 
+const postStatus = async (text, email) => {
+    const response = await axios({
+                url: "http://localhost:8000/postpage",
+                method: "POST", 
+                data: {text: text, email: email}
+            })
+            .then(res => res.data)
+            .catch(error => {
+                console.error(error);
+                return null;
+            });
+
+    if(response.success){
+        alert("Posted Successfully");
+    }
+    else {
+        alert(`Error:  ${response.message}`)
+    }
+}
+
 
 const signInSubmitButton = document.getElementById('signInBtn')
 if(signInSubmitButton){
@@ -58,3 +80,17 @@ if(signUpSubmitButton){
         addUser(signUpUserId, signUpUserPw); 
     })
 }
+
+const postButton = document.getElementById('postBtn')
+if(postButton){
+    postButton.addEventListener("click", () =>{
+        const text = document.getElementById('postArea').value;
+        const urlParams = new URLSearchParams(window.location.search)
+        const email = urlParams.get('email')
+        if(!email){
+            alert("Invalid session");
+        }
+        postStatus(text, email)
+    })
+}
+
