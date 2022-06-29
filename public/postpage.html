@@ -7,12 +7,25 @@
     <title>FlapApp</title>
 </head>
 <body>
-    <div class="container mt-5" style="margin: auto; width: 220px;">
+    <div class="container mt-5" style="margin: auto; width: 440px;">
         <table>
             <thead>FlapApp post page</thead>
             <tbody>
-                <textarea id="postArea" name="postArea" rows="10" cols="60" maxlength="1000"></textarea>
-                <button id="postBtn" style="color:blue"> Submit</button>
+                <textarea id="postArea" name="postArea" rows="10" cols="60" maxlength="1000" placeholder="Express your feelings here...."></textarea>
+                <button id="postBtn" style="color:blue"> Submit</button> 
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <br>
+    <div class="PostArea mt-5" style="margin: auto; width: 1000px;" >
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Post</th>
+                <th>Time</th>
+            </tr>
+            <tbody id="all-posts">
             </tbody>
         </table>
     </div>

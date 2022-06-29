@@ -1,5 +1,3 @@
-
-
 const authenticate = async (email, password) => {
     const response = await axios({
                 url: "http://localhost:8000/signin",
@@ -13,7 +11,9 @@ const authenticate = async (email, password) => {
             });
 
     if(response.success){
-         window.location.replace(`/postpage.html?email=${email}`);
+
+        window.location.replace(`/postpage.html?email=${email}`);
+
     }
     else {
         alert(`Error:  ${response.message}`)
@@ -33,7 +33,8 @@ const addUser = async (email, password) => {
             });
 
     if(response.success){
-        alert("Signed Up");
+        alert("Signed Up successfully");
+        window.location.replace(`/signin.html`);
     }
     else {
         alert(`Error:  ${response.message}`)
@@ -52,14 +53,8 @@ const postStatus = async (text, email) => {
                 return null;
             });
 
-    if(response.success){
-        alert("Posted Successfully");
-    }
-    else {
-        alert(`Error:  ${response.message}`)
-    }
+    return response;
 }
-
 
 const signInSubmitButton = document.getElementById('signInBtn')
 if(signInSubmitButton){
@@ -83,14 +78,62 @@ if(signUpSubmitButton){
 
 const postButton = document.getElementById('postBtn')
 if(postButton){
-    postButton.addEventListener("click", () =>{
+    postButton.addEventListener("click", async() =>{
         const text = document.getElementById('postArea').value;
         const urlParams = new URLSearchParams(window.location.search)
         const email = urlParams.get('email')
         if(!email){
             alert("Invalid session");
         }
-        postStatus(text, email)
+        const response = await postStatus(text, email)
+        if(response.success){
+            alert("Posted Successfully");
+            updatePostsTable();
+        }
+        else {
+            alert(`Error:  ${response.message}`)
+        }
     })
 }
 
+
+
+const getAllPosts = async() => {
+    let allposts = [];
+    const response = await axios({
+        url: "http://localhost:8000/allposts",
+        method: "GET",
+    })
+    .then(res => res.data)
+    .catch(error => {
+        console.error(error);
+        return null;
+    });
+
+    if(response.success){
+        allposts = response.data;
+    }
+    return allposts;
+}
+
+const updatePostsTable = async () => {
+    const allposts = await getAllPosts();
+    if(allposts.length > 0){
+        const postRows = allposts.map(post => {
+            return `
+            <tr>
+                <td>${post.email}</td>
+                <td>${post.post}</td>
+                <td>${post.time}</td>
+            </tr>
+            `
+        })
+        const postRowsHtml = postRows.join(" "); 
+        postsDisplayTableBody.innerHTML = postRowsHtml;
+    }
+}
+
+const postsDisplayTableBody = document.getElementById("all-posts");
+if(postsDisplayTableBody){
+    updatePostsTable()
+}
